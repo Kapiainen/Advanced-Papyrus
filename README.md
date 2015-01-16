@@ -43,8 +43,15 @@ So if you have SKSE's source files in a separate folder and put its path into op
 If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then you might have noticed that the contents of *Advanced Papyrus.ini* look like the contents of SublimePapyrus' INI file. That is because they are the same and you can actually force Advanced Papyrus to use your copy of *SublimePapyrus.ini* by not copying *Advanced Papyrus.ini* into *\Skyrim\Papyrus Compiler*. This way you can have the same settings for Advanced Papyrus and SublimePapyrus.
 
 ##Mod Organizer
-Advanced Papyrus is useful when running [Creation Kit](http://www.creationkit.com/Main_Page) via [Mod Organizer](http://www.nexusmods.com/skyrim/mods/1334/) since you don't need to modify the Papyrus compiler and you can keep all of your script source files separated. You should modify *Advanced Papyrus.ini* (or *SublimePapyrus.ini*, if you use SublimePapyrus) so that the *output* option points to the *\Mod Organizer\overwrite\Scripts*
+Advanced Papyrus is useful when running [Creation Kit](http://www.creationkit.com/Main_Page) via [Mod Organizer](http://www.nexusmods.com/skyrim/mods/1334/) since you don't need to modify the Papyrus compiler and you can keep all of your script source files separated.
+
+You should modify *Advanced Papyrus.ini* (or *SublimePapyrus.ini*, if you use SublimePapyrus) so that the *output* option points to the *\Mod Organizer\overwrite\Scripts*
 
 ```
-output=PathToModOrganizer\overwrite\scripts\source
+output=Path\To\Mod Organizer\overwrite\scripts
+```
+
+You should also have a *path* option that points to *\Mod Organizer\Scripts\Source*:
+```
+path0=Path\To\Mod Organizer\overwrite\scripts\source
 ```
