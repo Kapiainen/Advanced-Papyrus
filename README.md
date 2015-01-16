@@ -74,7 +74,7 @@ If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then y
 ## Mod Organizer
 Advanced Papyrus is useful when running [Creation Kit](http://www.creationkit.com/Main_Page) via [Mod Organizer](http://www.nexusmods.com/skyrim/mods/1334/) since you don't need to modify the Papyrus compiler and you can keep all of your script source files separated.
 
-You should modify *Advanced Papyrus.ini* (or *SublimePapyrus.ini*, if you use SublimePapyrus) so that the *output* option points to the *"\Mod Organizer\overwrite\Scripts"*
+You should modify *Advanced Papyrus.ini* (or *SublimePapyrus.ini*, if you use SublimePapyrus) so that the *output* option points to the *"\Mod Organizer\overwrite\Scripts"*:
 
 ```
 output=Path\To\Mod Organizer\overwrite\scripts
