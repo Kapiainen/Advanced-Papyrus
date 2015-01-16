@@ -6,6 +6,16 @@ A wrapper program that allows for more advanced use of the Papyrus compiler from
 - Rename *PapyrusCompiler.exe* to *PapyrusCompiler - Original.exe*.
 - Rename *Advanced Papyrus.exe* to *PapyrusCompiler.exe*.
 
+If you've installed Advanced Papyrus correctly, then you should see the output of the Papyrus compiler in Creation Kit start with:
+
+```
+Advanced Papyrus: MESSAGE
+```
+
+*MESSAGE* will be about passing through unmodified arguments or modifying arguments to take into account an INI file.
+
+If you've forgotten to rename the old Papyrus compiler executable to *PapyrusCompiler - Original.exe*, then an error message will be printed in the output.
+
 See the Features section for information on how to use the various features of Advanced Papyrus.
 
 ## Features
