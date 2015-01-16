@@ -10,7 +10,7 @@ See the Features section for information on how to use the various features of A
 
 ##Features
 ####Argument modification
-Arguments sent by Creation Kit to the Papyrus compiler can be modified by copying *Advanced Papyrus.ini* to *\Skyrim\Papyrus Compiler*`and modifying it to suit your needs.
+Arguments sent by Creation Kit to the Papyrus compiler can be modified by copying *Advanced Papyrus.ini* to *\Skyrim\Papyrus Compiler* and modifying it to suit your needs.
 
 ```
 [Skyrim]
