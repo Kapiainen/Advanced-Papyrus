@@ -10,7 +10,7 @@ See the Features section for information on how to use the various features of A
 
 ## Features
 #### Argument modification
-Arguments sent by Creation Kit to the Papyrus compiler can be modified by copying *Advanced Papyrus.ini* to *"\Skyrim\Papyrus Compiler"* and modifying it to suit your needs. If you don't copy *Advanced Papyrus.ini* or use SublimePapyruss (see below for more information), then arguments sent from Creation Kit will just pass through unmodified.
+Arguments sent by Creation Kit to the Papyrus compiler can be modified by copying *Advanced Papyrus.ini* to *"\Skyrim\Papyrus Compiler"* and modifying it to suit your needs. If you don't copy *Advanced Papyrus.ini* or use SublimePapyrus (see below for more information), then arguments sent from Creation Kit will just pass through unmodified.
 
 ```
 [Skyrim]
