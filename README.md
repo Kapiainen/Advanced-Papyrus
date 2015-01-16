@@ -27,6 +27,25 @@ path2=
 pathN=
 ```
 
+So your INI file might look something like this:
+```
+[Skyrim]
+scripts=H:\Mod Organizer\Skyrim\mods\Creation Kit - 1 - Skyrim\Scripts\Source
+output=H:\Mod Organizer\Skyrim\overwrite\Scripts
+flags=TESV_Papyrus_Flags.flg
+[Import]
+path0=H:\Mod Organizer\Skyrim\overwrite\Scripts\Source
+path1=H:\Mod Organizer\Skyrim\mods\FISS\scripts\source
+path2=H:\Mod Organizer\Skyrim\mods\JContainers\scripts\source
+path3=H:\Mod Organizer\Skyrim\mods\Net Immerse Override\scripts\source
+path4=H:\Mod Organizer\Skyrim\mods\SkyUILib\scripts\source
+path5=H:\Mod Organizer\Skyrim\mods\SkyUI SDK\scripts\source
+path6=H:\Mod Organizer\Skyrim\mods\SKSE\Scripts\Source
+path7=H:\Mod Organizer\Skyrim\mods\Creation Kit - 2 - Dawnguard\Scripts\Source
+path8=H:\Mod Organizer\Skyrim\mods\Creation Kit - 3 - Hearthfire\Scripts\Source
+path9=H:\Mod Organizer\Skyrim\mods\Creation Kit - 4 - Dragonborn\Scripts\Source
+```
+
 All paths specified in the INI file should be absolute.
 The *scripts* option should point at your copy of the vanilla Skyrim source files (.psc).
 The *output* option should point at the folder you want the compiled scripts (.pex) to be placed. 
