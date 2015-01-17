@@ -8,21 +8,38 @@ class Program
 	static string PapyrusCompilerName = "PapyrusCompiler - Original.exe";
 	static TextWriter twOut = Console.Out;
 	static TextWriter twError = Console.Error;
+    static int minimumArgumentCount = 4;
 
     static void Main(string[] args)
     {
-        string[] configs = new string[2];
-        configs[0] = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\Advanced Papyrus.ini";
-        configs[1] = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SublimePapyrus.ini";
-        foreach (string config in configs) 
+        if (args.Length >= minimumArgumentCount) 
         {
-            if (File.Exists(config))
+            string[] configs = new string[2];
+            configs[0] = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\Advanced Papyrus.ini";
+            configs[1] = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SublimePapyrus.ini";
+            foreach (string config in configs) 
             {
-                twOut.WriteLine("Advanced Papyrus: Modifying arguments to include settings from " + config.Substring(config.LastIndexOf("\\") + 1) + "...");
-                args = ModifyArguments(args, config);
-                RunCompiler(args);
-                return;
+                if (File.Exists(config))
+                {
+                    twError.WriteLine("Advanced Papyrus: Modifying arguments to include settings from " + config.Substring(config.LastIndexOf("\\") + 1) + "...");
+                    args = ModifyArguments(args, config);
+                    for (int i = 1; i < args.Length; i++) 
+                    {
+                        if (args[i].Substring(3).Equals(""))
+                        {
+                            twError.WriteLine("Advanced Papyrus: ERROR! Encountered an empty argument. Please check the contents of \"" + config + "\"!");
+                            return;
+                        }
+                    }
+                    RunCompiler(args);
+                    return;
+                }
             }
+        }
+        else
+        {
+            twError.WriteLine("Advanced Papyrus: ERROR! Expecting at least " + minimumArgumentCount + " arguments, but received only " + args.Length + "!");
+            return;
         }
 		twOut.WriteLine("Advanced Papyrus: Passing unmodified arguments through to compiler...");
 		RunCompiler(args);
@@ -98,7 +115,7 @@ class Program
     	string PapyrusCompilerEXE = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\" + PapyrusCompilerName;
 		if (!File.Exists(PapyrusCompilerEXE)) 
 		{
-			twError.WriteLine("ERROR: Unable to find \"" + PapyrusCompilerName + "\" in \"" + Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\".");
+			twError.WriteLine("Advanced Papyrus: ERROR! Unable to find \"" + PapyrusCompilerName + "\" in \"" + PapyrusCompilerEXE.Substring(PapyrusCompilerEXE.LastIndexOf("\\") + 1) + "\"!");
 			return;
 		}
     	var proc = new Process {
