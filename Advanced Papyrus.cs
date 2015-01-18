@@ -49,60 +49,96 @@ class Program
     {
     	string input = "";
 	 	string[] lines = File.ReadAllLines(filepath);
-	 	for (int i = 0; i < lines.Length; i++) 
-	 	{
-	 		if (lines[i].Contains("[Import]"))
- 			{
- 				for (int j = i + 1; j < lines.Length; j++) 
- 				{
- 					if (lines[j].StartsWith("path"))
- 					{
- 						if (input.Length > 0)
- 						{
- 							input += ";";
- 						}
- 						input += "\"" + lines[j].Substring(lines[j].LastIndexOf("=") + 1) + "\"";
- 					}
- 					else if (lines[j].StartsWith("["))
- 					{
- 						break;
- 					}
- 				}
- 				break;
- 			}
-	 	}
- 		for (int i = 0; i < lines.Length; i++)
- 		{
- 			if (lines[i].Contains("[Skyrim]")) 
- 			{
- 				for (int j = i + 1; j < lines.Length; j++) 
- 				{
- 					if (lines[j].StartsWith("scripts="))
- 					{
- 						if (input.Length > 0)
- 						{
- 							input += ";";
- 						}
- 						input += "\"" + lines[j].Substring(8) + "\"";
- 					}
- 					else if (lines[j].StartsWith("output="))
- 					{
- 						args[3] = "-o=\"" + lines[j].Substring(7) + "\"";
- 					}
- 					else if (lines[j].StartsWith("flags="))
- 					{
- 						args[1] = "-f=" + lines[j].Substring(6);
- 					}
- 					else if (lines[j].StartsWith("["))
- 					{
- 						break;
- 					}
- 				}
- 				break;
- 			}
- 		}
- 		args[2] = "-i=" + input;
- 		return args;
+        int import = -1;
+        int skyrim = -1;
+        int debug = -1;
+        for (int i = 0; i < lines.Length; i++) 
+        {
+            if ((import == -1) && (lines[i].StartsWith("[Import]")))
+            {
+                import = i + 1;
+            }
+            else if ((skyrim == -1) && (lines[i].StartsWith("[Skyrim]")))
+            {
+                skyrim = i + 1;
+            }
+            else if ((debug == -1) && (lines[i].StartsWith("[Debug]")))
+            {
+                debug = i + 1;
+            }
+        }
+        if (import >= 0) 
+        {
+            for (int i = import; i < lines.Length; i++) 
+            {
+                if (lines[i].StartsWith("path"))
+                {
+                    if (input.Length > 0)
+                    {
+                        input += ";";
+                    }
+                    input += "\"" + lines[i].Substring(lines[i].LastIndexOf("=") + 1) + "\"";
+                }
+                else if (lines[i].StartsWith("["))
+                {
+                    break;
+                }
+            }
+        }
+        if (skyrim >= 0)
+        {
+            for (int i = skyrim; i < lines.Length; i++) 
+            {
+                if (lines[i].StartsWith("scripts="))
+                {
+                    if (input.Length > 0)
+                    {
+                        input += ";";
+                    }
+                    input += "\"" + lines[i].Substring(8) + "\"";
+                }
+                else if (lines[i].StartsWith("output="))
+                {
+                    args[3] = "-o=\"" + lines[i].Substring(7) + "\"";
+                }
+                else if (lines[i].StartsWith("flags="))
+                {
+                    args[1] = "-f=" + lines[i].Substring(6);
+                }
+                else if (lines[i].StartsWith("["))
+                {
+                    break;
+                }
+            }
+        }
+        args[2] = "-i=" + input;
+        if (debug >= 0)
+        {
+            List<string> arguments = new List<string>();
+            arguments.AddRange(args);
+            string[] validargs = new string[11] {"all", "a", "debug", "d", "optimize", "op", "quiet", "q", "noasm", "keepasm", "asmonly"};
+            for (int i = debug; i < lines.Length; i++) 
+            {
+                if (lines[i].StartsWith("arg"))
+                {
+                    lines[i] = lines[i].Substring(lines[i].LastIndexOf("=") + 1);
+                    foreach (string validarg in validargs) 
+                    {
+                        if (validarg.Equals(lines[i])) 
+                        {
+                            arguments.Add("-" + lines[i]);
+                            break;
+                        }
+                    }
+                }
+                else if (lines[i].StartsWith("["))
+                {
+                    break;
+                }
+            }
+            args = arguments.ToArray();
+        }
+        return args;
     }
 
     static void RunCompiler(string[] args)

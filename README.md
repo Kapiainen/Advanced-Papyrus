@@ -71,6 +71,35 @@ So if you have SKSE's source files in a separate folder and put its path into op
 
 If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then you might have noticed that the contents of *Advanced Papyrus.ini* look like the contents of SublimePapyrus' INI file. That is because they are the same and you can actually force Advanced Papyrus to use your copy of *SublimePapyrus.ini* by not copying *Advanced Papyrus.ini* into *"\Skyrim\Papyrus Compiler"*. This way you can have the same settings for Advanced Papyrus and SublimePapyrus.
 
+
+**Most people will not need to use any of the arguments listed below and the arguments should only be used if you know what you are doing!**
+You can also use arguments like *optimize*, *debug*, and *keepasm* which are intended for advanced users. These can be added to the INI file in a section labeled *Debug* and each argument should be added as the value to an option starting with *arg*:
+
+```
+[Debug]
+arg0=debug
+arg1=keepasm
+.
+.
+.
+argN=optimize
+```
+
+The full list of supported arguments is as follows:
+
+```
+// Argument = Description
+all = Invokes the compiler against all psc files in the specified directory.
+debug = Turns on compiler debugging, outputting dev information to the screen.
+optimize = Turns on optimization of scripts.
+quiet = Does not report progress or success (only failures).
+noasm = Does not generate an assembly file and does not run the assembler.
+keepasm = Keeps the assembly file after running the assembler.
+asmonly = Generates an assembly file but does not run the assembler.
+```
+
+
+
 ## Mod Organizer
 Advanced Papyrus is useful when running [Creation Kit](http://www.creationkit.com/Main_Page) via [Mod Organizer](http://www.nexusmods.com/skyrim/mods/1334/) since you don't need to modify the Papyrus compiler and you can keep all of your script source files separated.
 
