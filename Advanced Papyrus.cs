@@ -164,17 +164,28 @@ class Program
         		CreateNoWindow = true
         	}
         };
+        proc.EnableRaisingEvents = true;
+        proc.OutputDataReceived += new DataReceivedEventHandler(OutputWriter);
+        proc.ErrorDataReceived += new DataReceivedEventHandler(OutputWriter);
         proc.Start();
-        twOut.WriteLine(proc.StandardOutput.ReadLine());
-        while((!proc.StandardOutput.EndOfStream) || (!proc.StandardError.EndOfStream)) {
-        	if (!proc.StandardOutput.EndOfStream) 
-        	{
-        		twOut.WriteLine(proc.StandardOutput.ReadLine());
-        	}
-        	if (!proc.StandardError.EndOfStream) 
-        	{
-        		twError.WriteLine(proc.StandardError.ReadLine());
-        	}
+        proc.BeginOutputReadLine();
+        proc.BeginErrorReadLine();
+        proc.WaitForExit();
+    }
+
+    static void OutputWriter(object sender, DataReceivedEventArgs args)
+    {
+        if (args.Data != null)
+        {
+            twOut.WriteLine(args.Data);
+        }
+    }
+
+    static void ErrorWriter(object sender, DataReceivedEventArgs args)
+    {
+        if (args.Data != null)
+        {
+            twError.WriteLine(args.Data);
         }
     }
 }
