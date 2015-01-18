@@ -72,6 +72,7 @@ So if you have SKSE's source files in a separate folder and put its path into op
 If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then you might have noticed that the contents of *Advanced Papyrus.ini* look like the contents of SublimePapyrus' INI file. That is because they are the same and you can actually force Advanced Papyrus to use your copy of *SublimePapyrus.ini* by not copying *Advanced Papyrus.ini* into *"\Skyrim\Papyrus Compiler"*. This way you can have the same settings for Advanced Papyrus and SublimePapyrus.
 
 
+The following section about advanced arguments is not yet available in a release version, but it is on the repository. Certain arguments (e.g. *debug*) cause issues when running the compiler from Creation Kit.
 **Most people will not need to use any of the arguments listed below and the arguments should only be used if you know what you are doing!**
 You can also use arguments like *optimize*, *debug*, and *keepasm* which are intended for advanced users. These can be added to the INI file in a section labeled *Debug* and each argument should be added as the value to an option starting with *arg*:
 
@@ -97,7 +98,7 @@ noasm = Does not generate an assembly file and does not run the assembler.
 keepasm = Keeps the assembly file after running the assembler.
 asmonly = Generates an assembly file but does not run the assembler.
 ```
-
+~~
 
 
 ## Mod Organizer
