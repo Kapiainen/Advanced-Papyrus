@@ -98,7 +98,6 @@ noasm = Does not generate an assembly file and does not run the assembler.
 keepasm = Keeps the assembly file after running the assembler.
 asmonly = Generates an assembly file but does not run the assembler.
 ```
-~~
 
 
 ## Mod Organizer
