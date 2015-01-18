@@ -75,7 +75,7 @@ If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then y
 **The following section about advanced arguments is not yet available in a release version, but it is on the repository. Certain arguments (e.g. *debug*) cause issues when running the compiler from Creation Kit.**
 
 **Most people will not need to use any of the arguments listed below and the arguments should only be used if you know what you are doing!**
-You can also use arguments like *optimize*, *debug*, and *keepasm* which are intended for advanced users. These can be added to the INI file in a section labeled *Debug* and each argument should be added as the value to an option starting with *arg*:
+You can use arguments like *optimize*, *debug*, and *keepasm* which are intended for advanced users. These can be added to the INI file in a section labeled *Debug* and each argument should be added as the value to an option starting with *arg*:
 
 ```
 [Debug]
