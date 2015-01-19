@@ -166,7 +166,7 @@ class Program
         };
         proc.EnableRaisingEvents = true;
         proc.OutputDataReceived += new DataReceivedEventHandler(OutputWriter);
-        proc.ErrorDataReceived += new DataReceivedEventHandler(OutputWriter);
+        proc.ErrorDataReceived += new DataReceivedEventHandler(ErrorWriter);
         proc.Start();
         proc.BeginOutputReadLine();
         proc.BeginErrorReadLine();
