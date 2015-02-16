@@ -69,7 +69,7 @@ Advanced Papyrus will read through the *Import* section first and then the *Skyr
 
 So if you have SKSE's source files in a separate folder and put its path into option *pathN*, then the Papyrus compiler will use SKSE's sources instead of the Skyrim's source files.
 
-If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then you might have noticed that the contents of *Advanced Papyrus.ini* look like the contents of SublimePapyrus' INI file. That is because they are the same and you can actually force Advanced Papyrus to use your copy of *SublimePapyrus.ini* by not copying *Advanced Papyrus.ini* into *"\Skyrim\Papyrus Compiler"*. This way you can have the same settings for Advanced Papyrus and SublimePapyrus.
+If you use [SublimePapyrus](https://github.com/Kapiainen/SublimePapyrus), then you might have noticed that the contents of *Advanced Papyrus.ini* look like the contents of SublimePapyrus' INI file. That is because they are the same and you can actually force Advanced Papyrus to use your copy of *SublimePapyrus.ini*, but only if it exists in *My Documents*, by not copying *Advanced Papyrus.ini* into *"\Skyrim\Papyrus Compiler"*. This way you can have the same settings for Advanced Papyrus and SublimePapyrus.
 
 **Most people will not need to use any of the arguments listed below and the arguments should only be used if you know what you are doing!**
 
