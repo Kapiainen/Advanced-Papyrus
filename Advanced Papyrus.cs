@@ -151,7 +151,7 @@ class Program
     	string PapyrusCompilerEXE = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\" + PapyrusCompilerName;
 		if (!File.Exists(PapyrusCompilerEXE)) 
 		{
-			twError.WriteLine("Advanced Papyrus: ERROR! Unable to find \"" + PapyrusCompilerName + "\" in \"" + PapyrusCompilerEXE.Substring(PapyrusCompilerEXE.LastIndexOf("\\") + 1) + "\"!");
+			twError.WriteLine("Advanced Papyrus: ERROR! Unable to find \"" + PapyrusCompilerName + "\" in \"" + PapyrusCompilerEXE.Substring(0, PapyrusCompilerEXE.LastIndexOf("\\") + 1) + "\"!");
 			return;
 		}
     	var proc = new Process {
