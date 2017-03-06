@@ -1,0 +1,23 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+	{
+	},
+	"build_systems":
+	[
+		{
+			"name": "Build binary",
+			"cmd":
+			[
+				"dmd",
+				"$project_path/AdvancedPapyrus.d",
+				"-m32" // Force 32-bit
+			]
+		}
+	]
+}
