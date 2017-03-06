@@ -16,7 +16,8 @@
 			[
 				"dmd",
 				"$project_path/AdvancedPapyrus.d",
-				"-m32" // Force 32-bit
+				"-m32", // Force 32-bit
+				"-of=PapyrusCompiler"
 			]
 		}
 	]
