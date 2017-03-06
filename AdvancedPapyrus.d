@@ -8,12 +8,18 @@ int main(string[] args) {
 		// 3 = Input folders
 		// 4 = Output folder
 		string working_directory = getcwd();
-		string compiler_path = working_directory ~ "\\Backup\\PapyrusCompiler.exe";
+		string compiler_path = working_directory ~ "\\Advanced Papyrus\\PapyrusCompiler.exe";
 		if (exists(compiler_path)) {
-			string settings_path = working_directory ~ "\\AdvancedPapyrus.json";
+			string settings_path = working_directory ~ "\\Advanced Papyrus\\Advanced Papyrus.json";
 			if (exists(settings_path)) {
 				writeln("Advanced Papyrus: Modifying arguments.");
 				JSONValue settings = parseJSON(readFile(settings_path));
+				// SublimePapyrus override
+				string sublimepapyrus_path = getStringSetting(settings, "sublimepapyrus");
+				if (sublimepapyrus_path != null && sublimepapyrus_path != "") {
+					settings = parseJSON(readFile(sublimepapyrus_path));
+				}
+
 				// Flags file
 				string flags_file = getStringSetting(settings, "flags");
 				if (flags_file == null) {
@@ -46,9 +52,7 @@ int main(string[] args) {
 				// Flags
 				string[] flags;
 				auto flags_array = getArraySetting(settings, "arguments");
-				if (flags_array.length == 0) {
-
-				} else {
+				if (flags_array.length > 0) {
 					for (int i = 0; i < flags_array.length; i++) {
 						flags.insertInPlace(i, flags_array[i].str);
 					}
