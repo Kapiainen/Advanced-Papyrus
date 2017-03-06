@@ -22,9 +22,9 @@ int main(string[] args) {
 
 				// Input folders
 				string[] input_folders;
-				auto input_folders_array = getArraySetting(settings, "input");
+				auto input_folders_array = getArraySetting(settings, "import");
 				if (input_folders_array.length == 0) {
-					string input_folder_temp = getStringSetting(settings, "input");
+					string input_folder_temp = getStringSetting(settings, "import");
 					if (input_folder_temp != null) {
 						input_folders.insertInPlace(0, input_folder_temp);
 					}
