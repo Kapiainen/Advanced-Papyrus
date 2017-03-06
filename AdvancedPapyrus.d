@@ -1,4 +1,4 @@
-import std.stdio, std.process, std.json, std.file, std.array;
+import std.stdio, std.process, std.json, std.file, std.array, std.path, std.string;
 
 int main(string[] args) {
 	if (args.length >= 5) {
@@ -8,62 +8,80 @@ int main(string[] args) {
 		// 3 = Input folders
 		// 4 = Output folder
 		string working_directory = getcwd();
-		string compiler_path = working_directory ~ "\\Advanced Papyrus\\PapyrusCompiler.exe";
-		if (exists(compiler_path)) {
-			string settings_path = working_directory ~ "\\Advanced Papyrus\\Advanced Papyrus.json";
-			if (exists(settings_path)) {
-				writeln("Advanced Papyrus: Modifying arguments.");
-				JSONValue settings = parseJSON(readFile(settings_path));
-				// SublimePapyrus override
-				string sublimepapyrus_path = getStringSetting(settings, "sublimepapyrus");
-				if (sublimepapyrus_path != null && sublimepapyrus_path != "") {
-					settings = parseJSON(readFile(sublimepapyrus_path));
-				}
-
-				// Flags file
-				string flags_file = getStringSetting(settings, "flags");
-				if (flags_file == null) {
-					flags_file = args[2];
-				}
-
-				// Input folders
-				string[] input_folders;
-				auto input_folders_array = getArraySetting(settings, "import");
-				if (input_folders_array.length == 0) {
-					string input_folder_temp = getStringSetting(settings, "import");
-					if (input_folder_temp != null) {
-						input_folders.insertInPlace(0, input_folder_temp);
-					}
-				} else {
-					for (int i = 0; i < input_folders_array.length; i++) {
-						input_folders.insertInPlace(i, input_folders_array[i].str);
-					}
-				}
-				if (input_folders.length == 0) {
-					input_folders.insertInPlace(0, args[3]);
-				}
-
-				// Output folder
-				string output_folder = getStringSetting(settings, "output");
-				if (output_folder == null) {
-					output_folder = args[4];
-				}
-
-				// Flags
-				string[] flags;
-				auto flags_array = getArraySetting(settings, "arguments");
-				if (flags_array.length > 0) {
-					for (int i = 0; i < flags_array.length; i++) {
-						flags.insertInPlace(i, flags_array[i].str);
-					}
-				}
-				runCompiler(compiler_path, args[1], flags_file, input_folders, output_folder, flags);
-			} else {
-				writeln("Advanced Papyrus: Could not find \"AdvancedPapyrus.json\". Passing arguments to compiler in unmodified state.");
-				runCompiler(compiler_path, args[1], args[2], [args[3]], args[4], null);
+		string settings_path = working_directory ~ "\\Advanced Papyrus.json";
+		if (!exists(settings_path)) {
+			string[] path_elements = [];
+			foreach (element; pathSplitter(working_directory)) {
+				path_elements ~= element;
 			}
+			for (int i = 0; i < path_elements.length; i++) {
+				if (toLower(path_elements[i]) == "skyrim") {
+					settings_path = buildPath(path_elements[0..i + 1]) ~ "\\Papyrus Compiler\\Advanced Papyrus.json";
+					break;
+				}
+			}
+		}
+		if (exists(settings_path)) {
+			writeln("Advanced Papyrus: Modifying arguments.");
+			JSONValue settings = parseJSON(readFile(settings_path));
+
+			// SublimePapyrus override
+			string sublimepapyrus_path = getStringSetting(settings, "sublimepapyrus");
+			if (sublimepapyrus_path != null && sublimepapyrus_path != "") {
+				settings = parseJSON(readFile(sublimepapyrus_path));
+				settings = getObjectSetting(settings, "modules");
+				settings = getObjectSetting(settings, "skyrim");
+			}
+
+			// Compiler path
+			string compiler_path = getStringSetting(settings, "compiler");
+			if (!exists(compiler_path)) {
+				writeln("Advanced Papyrus: \"" ~ compiler_path ~ "\" does not exist. Aborting compilation...");
+				return 1;
+			}
+
+			// Flags file
+			string flags_file = getStringSetting(settings, "flags");
+			if (flags_file == null) {
+				flags_file = args[2];
+			}
+
+			// Input folders
+			string[] input_folders;
+			auto input_folders_array = getArraySetting(settings, "import");
+			if (input_folders_array.length == 0) {
+				string input_folder_temp = getStringSetting(settings, "import");
+				if (input_folder_temp != null) {
+					input_folders.insertInPlace(0, input_folder_temp);
+				}
+			} else {
+				for (int i = 0; i < input_folders_array.length; i++) {
+					input_folders.insertInPlace(i, input_folders_array[i].str);
+				}
+			}
+			if (input_folders.length == 0) {
+				input_folders.insertInPlace(0, args[3]);
+			}
+
+			// Output folder
+			string output_folder = getStringSetting(settings, "output");
+			if (output_folder == null) {
+				output_folder = args[4];
+			}
+
+			// Flags
+			string[] flags;
+			auto flags_array = getArraySetting(settings, "arguments");
+			if (flags_array.length > 0) {
+				for (int i = 0; i < flags_array.length; i++) {
+					flags.insertInPlace(i, flags_array[i].str);
+				}
+			}
+			writeln("--------------------------------------------------");
+			return runCompiler(compiler_path, args[1], flags_file, input_folders, output_folder, flags);
 		} else {
-			writeln("Advanced Papyrus: \"" ~ compiler_path ~ "\" does not exist. Aborting compilation...");
+			writeln("Advanced Papyrus: Could not find \"Advanced Papyrus.json\".");
+			return 1;
 		}
 	} else if (args.length == 1) {
 		string programVersion = "2.0.0";
@@ -124,6 +142,15 @@ auto getArraySetting(JSONValue object, string key) {
 	if (settingExists(object, key)) {
 		if (object[key].type == JSON_TYPE.ARRAY) {
 			return object[key].array;
+		}
+	}
+	return null;
+}
+
+auto getObjectSetting(JSONValue object, string key) {
+	if (settingExists(object, key)) {
+		if (object[key].type == JSON_TYPE.OBJECT) {
+			return object[key].object;
 		}
 	}
 	return null;
