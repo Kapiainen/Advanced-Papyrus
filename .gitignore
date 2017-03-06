@@ -1,1 +1,4 @@
 *.zip
+*.obj
+*.exe
+*.sublime-workspace
